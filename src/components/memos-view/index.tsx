@@ -1,46 +1,43 @@
-import { defineComponent, reactive, ref } from "vue";
-import MDEditor, { MODE } from '/@/components/md-editor';
+import { defineComponent, reactive, Ref, ref } from "vue";
+import MDEditor, { EditorModeType } from '/@/components/md-editor';
 import "./index.css";
-import { relative } from "node:path/win32";
 
 export default defineComponent({
   name: "MemosView",
   setup() {
     const text = ref('');
-    let mode = ref(MODE.EDIT);
-    let modes = reactive(new Array(3).fill(0).map(e=>MODE.PREVIEW))
+    let mode: Ref<EditorModeType> = ref("edit");
+    let modes: EditorModeType[] = reactive(new Array(3).fill("preview"))
+    let editorIndex = -1;
+    const handleDblClick = (index: number) => { 
+      console.log('handleDblClick: ' + index);
+      if (editorIndex != -1) { 
+        modes[editorIndex] = "preview";
+      }
+      modes[index] = "edit";
+      editorIndex = index;
+    }
+
+
     return () => (
       <>
         <main class="memos-wrapper">
-          <div class="mb-1 w-full">
+          <div class="mb-3 w-full">
             <MDEditor
-              class="pb-1"
               v-model={text.value}
-              v-model:mode={mode}
+              mode={mode.value}
             ></MDEditor>
           </div>
-          <div class="mb-1 w-full">
-            <MDEditor
-              class="pb-1"
-              v-model={text.value}
-              v-model:mode={modes[0]}
-            ></MDEditor>
-          </div>
-          <div class="mb-1 w-full">
-            <MDEditor
-              class="pb-1"
-              v-model={text.value}
-              v-model:mode={modes[1]}
-            ></MDEditor>
-          </div>
-          <div class="mb-1 w-full">
-            <MDEditor
-              class="pb-1"
-              v-model={text.value}
-              v-model:mode={modes[2]}
-            ></MDEditor>
-          </div>
-
+          {modes.map((e, i) =>
+            <>
+              <div class="mb-3 w-full z-10" onDblclick={() => handleDblClick(i)}>
+                <MDEditor
+                  v-model={text.value}
+                  mode={modes[i]}
+                ></MDEditor>
+              </div>
+            </>
+          )}
         </main>
       </>
     );

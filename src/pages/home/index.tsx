@@ -2,6 +2,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import Sidebar from "/@/components/sidebar";
 import "./index.css";
 import MemosView from "/@/components/memos-view";
+import DropDown from "/@/components/drop-down";
 
 
 export default defineComponent({
@@ -12,8 +13,9 @@ export default defineComponent({
     return () => (
       <>
         <div class="container mx-auto relative w-full min-h-screen flex flex-row justify-start sm:justify-center items-start;">
-          <Sidebar />
-          <MemosView />
+          {/* <Sidebar /> */}
+          {/* <MemosView /> */}
+          <DropDown />
         </div>
       </>
     );
