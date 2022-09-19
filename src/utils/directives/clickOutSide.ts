@@ -1,3 +1,7 @@
+/**
+ * Adapted from https://github.com/element-plus/element-plus/blob/8ab9d9ce951d98d1d23d8e30b1a8ef848feaaecf/packages/directives/click-outside/index.ts
+ * MIT License
+ */
 import { isClient } from '@vueuse/core'
 import type {
   ComponentPublicInstance,
