@@ -15,7 +15,12 @@ export default defineComponent({
         <div class="container mx-auto relative w-full min-h-screen flex flex-row justify-start sm:justify-center items-start;">
           {/* <Sidebar /> */}
           {/* <MemosView /> */}
-          <DropDown />
+          <DropDown data={[
+            { label: "选项1", value: "" },
+            { label: "选项2", value: "" },
+            { label: "选项3", value: "" },
+            { label: "选项4", value: "" },]}
+            onSelect={(e) => { console.log(e) }} />
         </div>
       </>
     );

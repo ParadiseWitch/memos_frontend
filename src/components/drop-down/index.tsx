@@ -1,27 +1,36 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import ClickOutside from "/@/utils/directives/clickOutSide"
 
+interface LabelEntry {
+  label: string,
+  value: any
+}
 
 export default defineComponent({
   name: "DropDown",
   directives: { ClickOutside },
-  setup() {
-    let isVisible = ref(true);
+  props: {
+    data: {
+      type: Object as PropType<LabelEntry[]>,
+      required: true,
+    },
+  },
+  emits: ['select'],
+  setup(props, { emit }) {
     let showDownList = ref(false);
-
-    const handleClose = () => {
-      console.log('close');
-      showDownList.value = false;
-    }
-
-    const handleBtnClick = () => { 
-      showDownList.value = true;
-    }
+    const DownList = () => (<>
+      {props.data.map((item) =>
+        <div class="w-full bg-slate-300"
+          onClick={() => { emit('select', item); }}>
+          {item.label}
+        </div>)
+      }
+    </>)
     return () => (<>
-      {isVisible.value && <div class="h-fit bg-red-200" v-click-outside={handleClose}>
-        <div onClick={handleBtnClick}>下拉按钮</div>
-        {showDownList.value && <div class="w-full h-20">列表</div>} 
-      </div>}
+      <div class="h-fit" v-click-outside={() => { showDownList.value = false; }}>
+        <div class="border bg-slate-200" onClick={() => { showDownList.value = true; }}>下拉按钮</div>
+        {showDownList.value && DownList()}
+      </div>
     </>)
   }
 })
