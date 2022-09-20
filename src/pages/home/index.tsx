@@ -13,8 +13,8 @@ export default defineComponent({
     return () => (
       <>
         <div class="container mx-auto relative w-full min-h-screen flex flex-row justify-start sm:justify-center items-start;">
-          {/* <Sidebar /> */}
-          {/* <MemosView /> */}
+          <Sidebar />
+          <MemosView />
           <DropDown data={[
             { label: "选项1", value: "" },
             { label: "选项2", value: "" },
