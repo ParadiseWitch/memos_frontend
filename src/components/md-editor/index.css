@@ -33,7 +33,7 @@
 }
 
 .v-md-editor__left-area-title::after{
-  border-bottom: 3px solid RGB(243, 244, 246) !important;
+  border-bottom: 1px solid RGB(243, 244, 246) !important;
 }
 
 .v-md-editor--editable .v-md-editor__editor-wrapper{
