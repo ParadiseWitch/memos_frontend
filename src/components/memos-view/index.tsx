@@ -30,7 +30,7 @@ export default defineComponent({
           </div>
           {modes.map((e, i) =>
             <>
-              <div class="mb-3 w-full z-10" onDblclick={() => handleDblClick(i)}>
+              <div class="mb-3 w-full" onDblclick={() => handleDblClick(i)}>
                 <MDEditor
                   v-model={text.value}
                   mode={modes[i]}
