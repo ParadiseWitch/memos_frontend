@@ -13,26 +13,35 @@ export default defineComponent({
       type: Object as PropType<LabelEntry[]>,
       required: true,
     },
+    buttonSlot: {
+      type: Object as PropType<JSX.Element>
+    }
   },
   emits: ['select'],
   setup(props, { emit }) {
     let showDownList = ref(false);
     let clickOutSideTarget = ref(null);
-    onClickOutside(clickOutSideTarget, (event) => { 
-      console.log('onClickOutside');
+
+    onClickOutside(clickOutSideTarget, () => {
       showDownList.value = false;
     })
-    const DownList = () => (<>
-      {props.data.map((item) =>
-        <div class="w-full bg-slate-300"
-          onClick={() => { emit('select', item); }}>
-          {item.label}
-        </div>)
-      }
-    </>)
+
+    const DownList = () => (
+      <div class="absolute">
+        {props.data.map((item) =>
+          <div class="w-full bg-slate-300 "
+            onClick={() => { emit('select', item); }}>
+            {item.label}
+          </div>)
+        }
+      </div>
+    )
     return () => (<>
-      <div ref={clickOutSideTarget} class="h-fit">
-        <div class="border bg-slate-200" onClick={() => { showDownList.value = true; }}>下拉按钮</div>
+      <div ref={clickOutSideTarget} class="h-fit relative">
+        <div class="border bg-slate-200 p-2 text-gray-600"
+          onClick={() => { showDownList.value = !showDownList.value; }}>
+          { props.buttonSlot }
+        </div>
         {showDownList.value && DownList()}
       </div>
     </>)
