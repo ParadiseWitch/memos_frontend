@@ -5,7 +5,7 @@ export default defineComponent({
   props: {
     url: {
       type: String,
-      default: "/@/assets/avatar.jpeg"
+      default: "/public/assets/avatar.jpeg"
     }
   },
   setup(props) {
