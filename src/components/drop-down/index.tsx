@@ -27,9 +27,9 @@ export default defineComponent({
     })
 
     const DownList = () => (
-      <div class="absolute">
+      <div class="list-container absolute w-full bg-white shadow-md mt-2 rounded border">
         {props.data.map((item) =>
-          <div class="w-full bg-slate-300 "
+          <div class="w-full py-2 pl-4 text-sm hover:bg-gray-100"
             onClick={() => { emit('select', item); }}>
             {item.label}
           </div>)
@@ -38,7 +38,7 @@ export default defineComponent({
     )
     return () => (<>
       <div ref={clickOutSideTarget} class="h-fit relative">
-        <div class="border bg-slate-200 p-2 text-gray-600"
+        <div class={`dropdown-btn px-1 text-gray-600 rounded ${showDownList.value && 'bg-gray-200'}`}
           onClick={() => { showDownList.value = !showDownList.value; }}>
           { props.buttonSlot }
         </div>
