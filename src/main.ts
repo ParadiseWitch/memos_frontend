@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App'
+import router from './router'
 
 import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
@@ -27,5 +28,5 @@ VMdEditor.use(createTodoListPlugin());
 const app = createApp(App);
 app.use(VMdEditor);
 app.use(VMdPreview); 
-
+app.use(router);
 app.mount('#app')
