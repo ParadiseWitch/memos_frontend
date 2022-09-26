@@ -28,5 +28,6 @@ VMdEditor.use(createTodoListPlugin());
 const app = createApp(App);
 app.use(VMdEditor);
 app.use(VMdPreview); 
+console.log(router);
 app.use(router);
 app.mount('#app')

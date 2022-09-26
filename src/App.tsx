@@ -6,6 +6,6 @@ export default defineComponent({
   },
   setup(props) {
 
-    return () => <router-view/>
+    return () => <router-view />
   }
 })

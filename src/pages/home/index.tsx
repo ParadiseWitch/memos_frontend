@@ -11,14 +11,15 @@ export default defineComponent({
   name: "Home",
   directives: { Permission },
   setup() {
-    const useRouterTest = useRouter();
+    const router = useRouter();
     const handclick = () => {
-      useRouterTest.push('/login');
+      router.push('/login')
     }
 
 
     return () => (
       <>
+        <router-view></router-view>
         <div class="container mx-auto relative w-full min-h-screen flex flex-row justify-start sm:justify-center items-start;">
           <Sidebar />
           <MemosView />
