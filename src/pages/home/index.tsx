@@ -1,16 +1,18 @@
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import Sidebar from "/@/components/sidebar";
 import "./index.css";
 import MemosView from "/@/components/memos-view";
 import DropDown from "/@/components/drop-down";
 import { useRouter } from "vue-router";
+import { Permission } from "/@/utils/directives/permission";
 
 
 export default defineComponent({
   name: "Home",
+  directives: { Permission },
   setup() {
-    const handclick = ()=>{
-      const useRouterTest = useRouter();
+    const useRouterTest = useRouter();
+    const handclick = () => {
       useRouterTest.push('/login');
     }
 
@@ -21,9 +23,9 @@ export default defineComponent({
           <Sidebar />
           <MemosView />
           <div>
-            <button onClick={handclick}>
+            <div v-permission={[['user']]} onClick={handclick}>
               登录
-            </button>
+            </div>
           </div>
         </div>
       </>
