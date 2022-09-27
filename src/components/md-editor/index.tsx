@@ -1,5 +1,6 @@
 import { useVModel } from "@vueuse/core";
 import { defineComponent, nextTick, onMounted, PropType, ref } from "vue"
+import useToast from "../toast/use-toast";
 import "./index.css"
 
 export type EditorModeType = "edit" | "editable" | "preview";
@@ -31,11 +32,15 @@ export default defineComponent({
     const onSave = (text: any, html: any) => {
       console.log(text, html);
     }
+    const onFullScreen = (isFullscreen: boolean) => {
+      isFullscreen && useToast().show("提示", "按esc退出全屏");
+    }
 
     return () => (
       <>
         <v-md-editor
           ref={mdeditor}
+          onFullscreenChange={onFullScreen}
           placeholder="Any thounghts..."
           v-model={modelValue.value}
           include-level={[1, 2, 3]}

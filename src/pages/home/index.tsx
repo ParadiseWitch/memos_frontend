@@ -5,6 +5,7 @@ import MemosView from "/@/components/memos-view";
 import DropDown from "/@/components/drop-down";
 import { useRouter } from "vue-router";
 import { Permission } from "/@/utils/directives/permission";
+import useToast from "/@/components/toast/use-toast";
 
 
 export default defineComponent({
@@ -13,7 +14,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const handclick = () => {
-      router.push('/login')
+      // router.push('/login')
+      useToast().show();
     }
 
 

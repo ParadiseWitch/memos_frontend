@@ -4,6 +4,6 @@ import { ref } from "vue";
 
 export const useGlobalState = createGlobalState(() => { 
   const userName = ref('')
-  const userAuth = ref('visitor')
+  const userAuth = ref('user')
   return { userName, userAuth }
 })
