@@ -11,4 +11,16 @@ export default defineConfig({
       '/@': path.resolve(__dirname, './src')
     }
   },
+  server: {
+    port: 3000,
+    open: false, //自动打开 
+    base: "./ ", //生产环境路径
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 })
