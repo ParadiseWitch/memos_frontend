@@ -33,7 +33,6 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
-    const showPassword = ref(false)
 
     return () => (
       <>
