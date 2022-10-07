@@ -3,7 +3,11 @@
  * MIT License
  */
 
+import { PropType } from 'vue'
+
 export const isElement = (e: unknown): e is Element => {
   if (typeof Element === 'undefined') return false
   return e instanceof Element
 }
+
+export const definePropType = <T>(val: any): PropType<T> => val
