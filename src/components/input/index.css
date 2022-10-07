@@ -1,0 +1,8 @@
+.memos-input {
+  background-color: #e8f0fe;
+  border: 1px #dcdfe6 solid;
+}
+.memos-input input {
+  background-color: transparent;
+  outline-style: none;
+}
