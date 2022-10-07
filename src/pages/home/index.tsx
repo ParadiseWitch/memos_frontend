@@ -2,10 +2,8 @@ import { defineComponent, ref } from "vue";
 import Sidebar from "/@/components/sidebar";
 import "./index.css";
 import MemosView from "/@/components/memos-view";
-import DropDown from "/@/components/drop-down";
 import { useRouter } from "vue-router";
 import { Permission } from "/@/utils/directives/permission";
-import useToast from "/@/components/toast/use-toast";
 
 
 export default defineComponent({
@@ -14,14 +12,11 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const handclick = () => {
-      // router.push('/login')
-      useToast().show();
+      router.push('/login')
     }
-
 
     return () => (
       <>
-        <router-view></router-view>
         <div class="container mx-auto relative w-full min-h-screen flex flex-row justify-start sm:justify-center items-start;">
           <Sidebar />
           <MemosView />
