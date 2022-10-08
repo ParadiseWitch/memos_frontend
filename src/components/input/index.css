@@ -6,3 +6,7 @@
   background-color: transparent;
   outline-style: none;
 }
+
+.memos-input input[type="password"]::-ms-reveal{
+  display:none;
+}
