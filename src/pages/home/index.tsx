@@ -1,6 +1,5 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import Sidebar from "/@/components/sidebar";
-import "./index.css";
 import MemosView from "/@/components/memos-view";
 import { useRouter } from "vue-router";
 import { Permission } from "/@/utils/directives/permission";
