@@ -3,6 +3,7 @@ import Sidebar from "/@/components/sidebar";
 import MemosView from "/@/components/memos-view";
 import { useRouter } from "vue-router";
 import { Permission } from "/@/utils/directives/permission";
+import Button from "/@/components/button";
 
 
 export default defineComponent({
@@ -20,8 +21,8 @@ export default defineComponent({
           <Sidebar />
           <MemosView />
           <div>
-            <div v-permission={[['user']]} onClick={handclick}>
-              登录
+            <div class="p-20 pt-0">
+              <Button v-permission={[['user']]} onClick={handclick}>登录</Button>
             </div>
           </div>
         </div>
