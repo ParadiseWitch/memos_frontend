@@ -8,7 +8,7 @@ export default defineComponent({
   setup(props) {
     const getbuttonSolt = () =>
       <div class="text-2xl text-gray-600 flex">
-          <span class="truncate w-40 inline-block break-all">Maiiiiiidssssssssssssssssssssssssssss</span>
+        <span class="truncate w-40 inline-block break-all">Maiiiiiidssssssssssssssssssssssssssss</span>
         <svg class="ml-4 mt-2.5 stroke-current text-gray-500" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path data-v-5c29c1f2="" d="M3.71484 4.75L2.96484 5.5L6 8.53516L9.03516 5.5L8.28516 4.75L6 7.03516L3.71484 4.75Z"></path></svg>
       </div>
     return () => (

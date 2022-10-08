@@ -9,9 +9,9 @@ export default defineComponent({
     let mode: Ref<EditorModeType> = ref("edit");
     let modes: EditorModeType[] = reactive(new Array(3).fill("preview"))
     let editorIndex = -1;
-    const handleDblClick = (index: number) => { 
+    const handleDblClick = (index: number) => {
       console.log('handleDblClick: ' + index);
-      if (editorIndex != -1) { 
+      if (editorIndex != -1) {
         modes[editorIndex] = "preview";
       }
       modes[index] = "edit";

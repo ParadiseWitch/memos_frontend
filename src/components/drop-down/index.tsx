@@ -40,7 +40,7 @@ export default defineComponent({
       <div ref={clickOutSideTarget} class="h-fit relative">
         <div class={`dropdown-btn w-48 px-1 text-gray-600 rounded ${showDownList.value && 'bg-gray-200'}`}
           onClick={() => { showDownList.value = !showDownList.value; }}>
-          { props.buttonSlot }
+          {props.buttonSlot}
         </div>
         {showDownList.value && DownList()}
       </div>

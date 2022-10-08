@@ -7,8 +7,8 @@ export const Permission: Directive<Element, string[]> = {
     const { value } = binding;
     const { userAuth } = useGlobalState();
     console.log(value);
-    
-    if (!value || !(value instanceof Array) || value.length <= 0) { 
+
+    if (!value || !(value instanceof Array) || value.length <= 0) {
       throw new Error(`need roles! Like v-permission="['admin','user']`);
     }
 
