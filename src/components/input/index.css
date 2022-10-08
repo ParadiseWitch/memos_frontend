@@ -1,10 +1,15 @@
 .memos-input {
-  background-color: #e8f0fe;
+  background-color: #ffffff;
   border: 1px #dcdfe6 solid;
 }
 .memos-input input {
   background-color: transparent;
   outline-style: none;
+  font-size: 14px;
+}
+
+.memos-input:focus {
+  border: 1px #asddaa solid;
 }
 
 .memos-input input[type="password"]::-ms-reveal{

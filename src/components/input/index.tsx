@@ -39,8 +39,10 @@ export default defineComponent({
     return () => (
       <>
         {props.type !== "hidden" &&
-          <div class="memos-input rounded-md overflow-hidden p-2">
-            <input placeholder={props.placeholder}
+          <div class="w-full memos-input rounded-md overflow-hidden px-2 relative">
+            <input
+              class={`w-full p-2 ${props.type == "password" && 'pr-5'}`}
+              placeholder={props.placeholder}
               type={
                 props.type == "password" && showPassword.value
                   ? "password"
@@ -49,9 +51,9 @@ export default defineComponent({
               disabled={props.disabled}
               v-model={modelValue.value}>
             </input>
-            <svg
+            {props.type == "password" && <svg
               onClick={() => { showPassword.value = !showPassword.value }}
-              class="icon inline-block"
+              class="icon inline-block absolute top-3 right-2"
               style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
               viewBox="0 0 1024 1024"
               version="1.1"
@@ -65,7 +67,7 @@ export default defineComponent({
               <path
                 d="M511.232 668.032c-106.24 0-193.664-89.728-193.664-198.72 0-108.928 87.424-198.656 193.664-198.656 106.24 0 193.664 89.728 193.664 198.656 0 108.992-85.888 198.72-193.664 198.72z m0-301.248c-54.656 0-99.968 46.464-99.968 102.528 0 56.128 45.312 102.592 99.968 102.592 54.656 0 99.968-46.464 99.968-102.592 0-56.064-43.776-102.528-99.968-102.528z"
                 fill={eyeClolor.value} />
-            </svg>
+            </svg>}
           </div >}
       </>
     )
