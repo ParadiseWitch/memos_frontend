@@ -1,11 +1,16 @@
+import useToast from "/@/components/toast/use-toast";
+
 const request = async (url: string, config: any) => {
-  const res = await fetch(url, config);
-  if (!res.ok) {
-    // 服务器异常返回
-    throw Error('服务器异常返回');
+  try {
+    const res = await fetch(url, config);
+    if (!res.ok) {
+      // 服务器异常返回
+      useToast().show("服务器异常",{type:"danger"});
+    }
+    return res;
+  } catch (error) {
+    useToast().show("请求异常",{type:"danger"});
   }
-  const resJson = res.json();
-  return resJson;
 };
 
 // GET请求

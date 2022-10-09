@@ -33,7 +33,7 @@ export default defineComponent({
       console.log(text, html);
     }
     const onFullScreen = (isFullscreen: boolean) => {
-      isFullscreen && useToast().show("提示", "按esc退出全屏");
+      isFullscreen && useToast().show("按esc退出全屏",{type:"info"});
     }
 
     return () => (

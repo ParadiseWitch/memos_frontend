@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, createApp } from "vue";
-import ToastComp, { showToast } from ".";
+import ToastComp, { showToast ,options} from ".";
 
 let $vm: ComponentPublicInstance;
 
@@ -11,9 +11,9 @@ const initInstance = () => {
 }
 
 const useToast = () => {
-  function show(titleText?: string, contentText?: string) {
+  function show(contentText?: string, opts?: options) {
     if (!$vm) initInstance();
-    showToast(titleText, contentText);
+    showToast(contentText,opts);
   }
   return {
     show
