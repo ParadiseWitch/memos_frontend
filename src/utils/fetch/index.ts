@@ -5,9 +5,9 @@ const request = async (url: string, config: any) => {
     const res = await fetch(url, config);
     if (!res.ok) {
       // 服务器异常返回
-      useToast().show("服务器异常",{type:"danger"});
+      useToast().show("请求异常",{type:"danger"});
     }
-    return res;
+    return res.json();
   } catch (error) {
     useToast().show("请求异常",{type:"danger"});
   }
