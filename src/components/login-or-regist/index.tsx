@@ -2,9 +2,15 @@ import { defineComponent, ref } from "vue";
 import Button from "../button";
 import Input from "../input";
 import useToast from "../toast/use-toast";
-import { login } from "../../request";
 import { useRouter } from "vue-router";
+import { useFetch } from "@vueuse/core";
 
+
+interface ReturnType {
+  status: "fail" | "success",
+  data?: any,
+  msg?: "",
+}
 export default defineComponent({
   name: "LoginOrRegist",
   props: {
@@ -18,27 +24,53 @@ export default defineComponent({
     const username = ref("")
     const password = ref("")
     const router = useRouter();
+    let loading = ref(false)
 
-    const handleCheck = () => {
-      if (!username.value  || !password.value ) {
-        useToast().show("账号或密码不能为空",{type:"warn"});
+    const handleCheck = async () => {
+      if (!username.value || !password.value) {
+        useToast().show("账号或密码不能为空", { type: "warn" });
         return;
       }
-      login(username.value,password.value).then((response: any) => {
-        if (!response) {
-          useToast().show("请求失败",{type:"warn"});
-          return;
-        } 
-        if ('fail' === response.status) {
-          useToast().show(response.msg,{type:"warn"});
-          return;
-        }
-        useToast().show("登陆成功");
-        router.push('/home')
+
+      loading.value = true;
+      const { data, error } = await useFetch("/api/v1/user/login").
+        post({
+          name: username.value,
+          password: password.value,
+        }).
+        json<ReturnType>()
+
+      loading.value = false;
+      if (error.value || !data.value) {
+        useToast().show("请求失败", { type: "warn" });
         return;
-      });
+      }
+      if (!['fail', "success"].includes(data.value.status)) {
+        useToast().show("请求异常", { type: "warn" });
+        return;
+      }
+      if ('fail' === data.value.status) {
+        useToast().show(data.value.msg, { type: "warn" });
+        return;
+      }
+      useToast().show("登陆成功");
+      // router.push('/home')
+      return;
+      // login(username.value, password.value).then((response: any) => {
+      //   if (!response) {
+      //     useToast().show("请求失败", { type: "warn" });
+      //     return;
+      //   }
+      //   if ('fail' === response.status) {
+      //     useToast().show(response.msg, { type: "warn" });
+      //     return;
+      //   }
+      //   useToast().show("登陆成功");
+      //   router.push('/home')
+      //   return;
+      // });
     }
-    
+
 
     return () => (
       <>
@@ -51,7 +83,7 @@ export default defineComponent({
             <Input v-model={password.value} placeholder="请输入密码" type="password"></Input>
           </div>
           <div class="p-2 pt-0">
-            <Button onClick={handleCheck}>登录</Button>
+            <Button onClick={handleCheck}>{`登录${loading.value ? '中...' : ''}`}</Button>
           </div>
         </div>
       </>)

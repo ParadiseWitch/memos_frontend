@@ -1,8 +1,13 @@
-import { get, post } from "../utils/fetch";
+import { useFetch } from "@vueuse/core"
+import useToast from "../components/toast/use-toast";
 
-export const login = ( username: any, password: any) => {
-  return post("/api/v1/user/login",{
-    'name':username,
-    'password':password,
-  });
-};
+const useRequest = (url: string) => {
+  const { error, ...ret } = useFetch(url)
+  const handleError = () => {
+    if (error.value) {
+      useToast().show("请求失败", { type: "warn" });
+      return;
+    }
+  }
+  return { ...ret }
+}
