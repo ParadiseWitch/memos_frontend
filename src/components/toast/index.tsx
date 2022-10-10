@@ -11,9 +11,9 @@ const colorMap: Record<toastType, string> = {
   info: "bg-green-50",
   warn: "bg-yellow-50",
   danger: "bg-red-50"
-}; 
+};
 
-export interface options{
+export interface options {
   type?: toastType
 }
 
@@ -40,9 +40,6 @@ export default defineComponent({
         {visible.value.toString()}
         {visible.value &&
           <div class={`toast-container border w-1/2 p-4 absolute left-1/2 rounded-lg shadow-md ${color.value}`} style={{ top: `${top.value}%` }}>
-            {/* <div>
-              {title.value}
-            </div> */}
             <div class=" text-sm text-opacity-70 text-gray-700">{content.value}</div>
           </div>
         }
