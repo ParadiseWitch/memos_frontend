@@ -1,7 +1,7 @@
 import { defineComponent, ref } from "vue";
 import Button from "../button";
 import Input from "../input";
-import useToast from "../toast/use-toast";
+import { useToast } from '/@/components/toast/'
 import { useRouter } from "vue-router";
 import useRequest from "../../request";
 import { useGlobalState } from "/@/stage";
