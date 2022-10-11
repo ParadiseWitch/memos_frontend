@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App'
 import router from './router'
 
+import OutsideContainer from "/@/components/outside-container";
+
 import VMdEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
@@ -30,3 +32,6 @@ app.use(VMdEditor)
 app.use(VMdPreview)
 app.use(router)
 app.mount('#app')
+
+const outsideContainer = createApp(OutsideContainer);
+outsideContainer.mount('#outside-container');

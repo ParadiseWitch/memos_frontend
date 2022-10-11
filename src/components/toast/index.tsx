@@ -1,49 +1,17 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import "./index.css"
-import { TransitionPresets, useTransition } from "@vueuse/core";
+import { toastList } from "./use-toast";
 
-const visible = ref(false);
-const color = ref("toastShow");
-const content = ref("这里是系统提示！");
-const topSource = ref(40);
-export type toastType = "info" | "warn" | "danger"
-const colorMap: Record<toastType, string> = {
-  info: "bg-green-50",
-  warn: "bg-yellow-50",
-  danger: "bg-red-50"
-};
-
-export interface options {
-  type?: toastType
-}
-
-export const showToast = (contentText?: string, opts?: options) => {
-  const type = opts?.type || "info"
-  content.value = contentText || "这里是系统提示！";
-  visible.value = true;
-  topSource.value = 20;
-  color.value = colorMap[type]
-  setTimeout(() => {
-    visible.value = false;
-    topSource.value = 40;
-  }, 3000);
-}
 export default defineComponent({
   name: "Toast",
   setup() {
-    const top = useTransition(topSource, {
-      duration: 1000,
-      transition: TransitionPresets.easeOutQuint,
-    })
     return () => (
+      // <div class="toast-container">
       <>
-        {visible.value.toString()}
-        {visible.value &&
-          <div class={`toast-container border w-1/2 p-4 absolute left-1/2 rounded-lg shadow-md ${color.value}`} style={{ top: `${top.value}%` }}>
-            <div class=" text-sm text-opacity-70 text-gray-700">{content.value}</div>
-          </div>
-        }
+        {toastList.value.length}
+        {toastList.value.map(t => t.jsx())}
       </>
+      // </div >
     )
   }
 })

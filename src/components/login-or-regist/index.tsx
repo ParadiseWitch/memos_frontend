@@ -23,7 +23,7 @@ export default defineComponent({
 
     const handleCheck = async () => {
       if (!username.value || !password.value) {
-        useToast().show("账号或密码不能为空", { type: "warn" });
+        useToast("账号或密码不能为空", { type: "warn" }).show();
         return;
       }
 
@@ -35,7 +35,7 @@ export default defineComponent({
       }).json();
       loading.value = false;
       handleReqResult(({ data }) => {
-        useToast().show("登陆成功, " + data.value.data.name);
+        useToast("登陆成功, " + data.value.data.name).show();
         router.push('/home')
       })
     }

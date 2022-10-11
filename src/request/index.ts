@@ -34,18 +34,18 @@ const useRequest = <T extends ReturnType>() => {
       succ: (params: { data: Ref<T>, error: Ref<any> }) => void,
       fail?: (param: { data: Ref<T | null>, error: Ref<any> }) => void) {
       if (error.value || !data.value) {
-        useToast().show("请求失败", { type: "warn" });
+        useToast("请求失败", { type: "warn" }).show();
         fail && fail({ data, error });
         return
       }
       data.value = data.value as T
       if (!['fail', "success"].includes(data.value.status)) {
-        useToast().show("请求异常", { type: "warn" });
+        useToast("请求异常", { type: "warn" }).show();
         fail && fail({ data, error });
         return
       }
       if ('fail' === data.value.status) {
-        useToast().show(data.value.msg, { type: "warn" });
+        useToast(data.value.msg, { type: "warn" }).show();
         fail && fail({ data, error });
         return
       }
