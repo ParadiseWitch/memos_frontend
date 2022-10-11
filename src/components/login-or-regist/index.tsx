@@ -3,7 +3,7 @@ import Button from "../button";
 import Input from "../input";
 import useToast from "../toast/use-toast";
 import { useRouter } from "vue-router";
-import useRequest from "../../request/use-request";
+import useRequest from "../../request";
 import { useGlobalState } from "/@/stage";
 
 
