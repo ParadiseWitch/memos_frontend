@@ -39,8 +39,8 @@ const useToast = (contentText?: string, opts?: options) => {
   }
 }
 
-const genToast = (contentText?: string, opts?: options): Toast => {
-  const content = ref(contentText || "这里是系统提示！");
+const genToast = (contentText?: string | JSX.Element, opts?: options): Toast => {
+  const content = ref<string | JSX.Element>(contentText || "这里是系统提示！");
   const type = opts?.type || "info"
   const color = ref(colorMap[type]);
   const visible = ref(false);
