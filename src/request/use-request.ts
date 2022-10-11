@@ -17,7 +17,7 @@ const useRequest = <T extends ReturnType>() => {
         ...useFetchOptions,
         beforeFetch({ url, options, cancel }) {
           const { token } = useGlobalState();
-          if (!token && url != "/api/v1/user/login") {
+          if (!token && !["/api/v1/user/login", "/api/v1/user/regist"].includes(url)) {
             cancel()
           }
           options.headers = {
