@@ -1,4 +1,5 @@
 import { defineComponent } from "vue";
+import Dialog from "../dialog";
 import Toast from "../toast";
 
 export default defineComponent({
@@ -7,6 +8,7 @@ export default defineComponent({
     return () => (
       <>
         <Toast></Toast>
+        <Dialog></Dialog>
       </>
     )
   }

@@ -27,14 +27,14 @@ const colorMap: Record<toastType, string> = {
   danger: "bg-red-50"
 };
 
-export interface options {
+export interface ToastOptions {
   type?: toastType
 }
 
 
 
 const toastList = ref<ToastItem[]>([])
-export const useToast = (contentText?: string, opts?: options) => {
+export const useToast = (contentText?: string, opts?: ToastOptions) => {
   const toast = genToast(contentText, opts)
   toastList.value.push(toast)
   return {
@@ -50,7 +50,7 @@ export const useToast = (contentText?: string, opts?: options) => {
   }
 }
 
-const genToast = (contentText?: string | JSX.Element, opts?: options): ToastItem => {
+const genToast = (contentText?: string | JSX.Element, opts?: ToastOptions): ToastItem => {
   const content = ref<string | JSX.Element>(contentText || "这里是系统提示！");
   const type = opts?.type || "info"
   const color = ref(colorMap[type]);
