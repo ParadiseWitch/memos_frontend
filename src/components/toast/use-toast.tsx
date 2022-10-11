@@ -3,7 +3,7 @@ import { ref } from "vue"
 
 
 
-interface Toast {
+interface ToastItem {
   jsx: () => JSX.Element
   show: () => void,
   remove: (fn: Function) => void,
@@ -22,7 +22,7 @@ export interface options {
 
 
 
-export const toastList = ref<Toast[]>([])
+export const toastList = ref<ToastItem[]>([])
 const useToast = (contentText?: string, opts?: options) => {
   const toast = genToast(contentText, opts)
   toastList.value.push(toast)
@@ -39,7 +39,7 @@ const useToast = (contentText?: string, opts?: options) => {
   }
 }
 
-const genToast = (contentText?: string | JSX.Element, opts?: options): Toast => {
+const genToast = (contentText?: string | JSX.Element, opts?: options): ToastItem => {
   const content = ref<string | JSX.Element>(contentText || "这里是系统提示！");
   const type = opts?.type || "info"
   const color = ref(colorMap[type]);
