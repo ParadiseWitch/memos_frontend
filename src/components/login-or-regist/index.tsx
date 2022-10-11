@@ -4,6 +4,7 @@ import Input from "../input";
 import useToast from "../toast/use-toast";
 import { useRouter } from "vue-router";
 import useRequest from "../../request/use-request";
+import { useGlobalState } from "/@/stage";
 
 
 export default defineComponent({
@@ -36,6 +37,10 @@ export default defineComponent({
       loading.value = false;
       handleReqResult(({ data }) => {
         useToast("登陆成功, " + data.value.data.name).show();
+        const { userName, userRole, token } = useGlobalState();
+        token.value = data.value.data.token;
+        userName.value = data.value.data.name;
+        userRole.value = data.value.data.role;
         router.push('/home')
       })
     }
