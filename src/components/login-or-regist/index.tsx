@@ -57,7 +57,9 @@ export default defineComponent({
             <Input v-model={password.value} placeholder="请输入密码" type="password"></Input>
           </div>
           <div class="p-2 pt-0">
-            <Button onClick={handleCheck}>{`登录${loading.value ? '中...' : ''}`}</Button>
+            <Button onClick={handleCheck}>
+              {props.isLogin ? '登录' : '注册'}{loading.value ? '中...' : ''}
+            </Button>
           </div>
         </div>
       </>)
