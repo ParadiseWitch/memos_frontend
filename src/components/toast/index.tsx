@@ -1,6 +1,5 @@
 import { TransitionPresets, useTransition } from "@vueuse/core";
 import { defineComponent, ref } from "vue";
-import "./index.css"
 
 export default defineComponent({
   name: "Toast",
