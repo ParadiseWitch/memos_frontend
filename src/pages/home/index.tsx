@@ -11,8 +11,12 @@ export default defineComponent({
   directives: { Permission },
   setup() {
     const router = useRouter();
-    const handclick = () => {
+    const loginHandclick = () => {
       router.push('/login')
+    }
+
+    const registerHandclick = () => {
+      router.push({name:'login',query:{isLogin:'false'}})
     }
 
     return () => (
@@ -22,7 +26,10 @@ export default defineComponent({
           <MemosView />
           <div>
             <div class="p-20 pt-0">
-              <Button v-permission={[['user']]} onClick={handclick}>登录</Button>
+              <Button v-permission={[['user']]} onClick={loginHandclick}>登录</Button>
+            </div>
+            <div class="p-20 pt-0">
+              <Button v-permission={[['user']]} onClick={registerHandclick}>注册</Button>
             </div>
           </div>
         </div>

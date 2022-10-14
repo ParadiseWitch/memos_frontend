@@ -17,6 +17,7 @@ export default defineComponent({
   },
 
   setup(props) {
+
     const username = ref("")
     const password = ref("")
     const router = useRouter();
@@ -45,6 +46,14 @@ export default defineComponent({
       })
     }
 
+    const  loginOrRegistHandleCheck= async () => {
+      
+    }
+
+    const  backHomeHandleCheck= async () => {
+      
+    }
+
 
     return () => (
       <>
@@ -55,6 +64,14 @@ export default defineComponent({
           </div>
           <div class="p-2 pt-0">
             <Input v-model={password.value} placeholder="请输入密码" type="password"></Input>
+          </div>
+          <div>
+            <div class="text-xs" onClick={loginOrRegistHandleCheck}>
+              {props.isLogin ? "立即注册" : "立即登录"}
+            </div>
+            <div class="text-xs" onClick={backHomeHandleCheck}>
+              回首页
+            </div>
           </div>
           <div class="p-2 pt-0">
             <Button onClick={handleCheck}>
