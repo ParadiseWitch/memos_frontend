@@ -1,10 +1,10 @@
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "Button",
   props: {
     onClick: {
-      type: Function,
+      type: Function as PropType<() => void>,
       required: true,
     }
   },

@@ -1,7 +1,6 @@
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import LoginOrRegist from "../../components/login-or-regist";
-import Login_or_regist from "../../components/login-or-regist";
+import LoginOrRegister from "../../components/login-or-register";
 
 export default defineComponent({
 
@@ -12,7 +11,7 @@ export default defineComponent({
     return () => (<>
       <div class="container mx-auto relative w-full h-full min-h-screen flex flex-row justify-start sm:justify-center items-start">
         <div class=" w-64 absolute top-1/2 left-1/2" style="transform: translateX(-50%) translateY(-50%);">
-          <LoginOrRegist isLogin={isLogin}></LoginOrRegist>
+          <LoginOrRegister isLogin={isLogin}></LoginOrRegister>
         </div>
       </div>
     </>
