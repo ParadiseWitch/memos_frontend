@@ -16,7 +16,7 @@ export default defineComponent({
     }
 
     const registerHandclick = () => {
-      router.push({name:'login',query:{isLogin:'false'}})
+      router.push({ name: 'login', query: { isLogin: 'false' } })
     }
 
     return () => (
@@ -25,11 +25,11 @@ export default defineComponent({
           <Sidebar />
           <MemosView />
           <div>
-            <div class="p-20 pt-0">
-              <Button v-permission={[['user']]} onClick={loginHandclick}>登录</Button>
+            <div v-permission={[['user']]} class="p-20 pt-0">
+              <Button onClick={loginHandclick}>登录</Button>
             </div>
-            <div class="p-20 pt-0">
-              <Button v-permission={[['user']]} onClick={registerHandclick}>注册</Button>
+            <div v-permission={[['user']]} class="p-20 pt-0">
+              <Button onClick={registerHandclick}>注册</Button>
             </div>
           </div>
         </div>
