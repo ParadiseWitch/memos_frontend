@@ -9,7 +9,6 @@ const initInstance = () => {
   plugin = createApp(OutsideContainer);
   containerDom = document.createElement('div');
   containerDom.id = "outside-container"
-  // containerDom.className = "absolute"
   $vm = plugin.mount(containerDom);
   document.body.appendChild(containerDom);
 }
@@ -41,7 +40,12 @@ const useOutsideContainer = () => {
     hasContainer(name: string) {
       return registedContainer.value.has(name)
     },
-    isMask
+    showMask() {
+      isMask.value = true
+      return () => {
+        isMask.value = false
+      }
+    },
   }
 }
 
@@ -54,7 +58,7 @@ const OutsideContainer = defineComponent({
       <>
         {...Array.from(registedContainer.value.values()).map(c => c())}
         {isMask.value &&
-          <div id="mask" class="absolute top-0 left-0"></div>
+          <div id="mask" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
         }
       </>
     )

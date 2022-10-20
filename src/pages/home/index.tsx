@@ -4,6 +4,8 @@ import MemosView from "/@/components/memos-view";
 import { useRouter } from "vue-router";
 import { Permission } from "/@/utils/directives/permission";
 import Button from "/@/components/button";
+import useDialog from "/@/components/dialog";
+import { useToast } from "/@/components/toast";
 
 
 export default defineComponent({
@@ -12,11 +14,15 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const loginHandclick = () => {
-      router.push('/login')
+      useToast("test").show()
+      // router.push('/login')
     }
 
     const registerHandclick = () => {
-      router.push({ name: 'login', query: { isLogin: 'false' } })
+      // router.push({ name: 'login', query: { isLogin: 'false' } })
+      useDialog("test1").show()
+      useDialog("test2", { isModel: true, needConfirm: true, onConfirm: useDialog("test2-2").show }).show()
+      useDialog("test3", { title: "测试", }).show()
     }
 
     return () => (
