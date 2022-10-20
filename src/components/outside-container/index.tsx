@@ -1,5 +1,6 @@
 import { App, ComponentPublicInstance, createApp, defineComponent, ref } from "vue";
 
+const isMask = ref(false)
 let $vm: ComponentPublicInstance | null;
 let plugin: App<Element>
 let containerDom: HTMLDivElement
@@ -8,6 +9,7 @@ const initInstance = () => {
   plugin = createApp(OutsideContainer);
   containerDom = document.createElement('div');
   containerDom.id = "outside-container"
+  // containerDom.className = "absolute"
   $vm = plugin.mount(containerDom);
   document.body.appendChild(containerDom);
 }
@@ -38,7 +40,8 @@ const useOutsideContainer = () => {
     },
     hasContainer(name: string) {
       return registedContainer.value.has(name)
-    }
+    },
+    isMask
   }
 }
 
@@ -50,6 +53,9 @@ const OutsideContainer = defineComponent({
     return () => (
       <>
         {...Array.from(registedContainer.value.values()).map(c => c())}
+        {isMask.value &&
+          <div id="mask" class="absolute top-0 left-0"></div>
+        }
       </>
     )
   }
