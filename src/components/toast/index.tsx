@@ -38,7 +38,7 @@ const toastContainer = () => (
   </div>
 )
 
-export const useToast = (contentText: string, opts?: ToastOptions) => {
+export const useToast = (content: string | JSX.Element, opts?: ToastOptions) => {
   const { registContainer, hasContainer, removeContainer } = useOutsideContainer()
   if (!hasContainer(ToastContainerName)) {
     registContainer({ name: ToastContainerName, jsx: toastContainer })
@@ -47,7 +47,7 @@ export const useToast = (contentText: string, opts?: ToastOptions) => {
   return {
     async show() {
       const len = toastList.value.length
-      const toast = genToast(contentText, { ...opts, top: ref(300 + len * 60) })
+      const toast = genToast(content, { ...opts, top: ref(300 + len * 60) })
       toastList.value.push(toast)
       toast.show(100 + 60 * len)
       if (toastList.value.length != 1) return
@@ -65,8 +65,8 @@ export const useToast = (contentText: string, opts?: ToastOptions) => {
   }
 }
 
-const genToast = (contentText: string | JSX.Element, opts: ToastOptions): Toast => {
-  const content = ref<string | JSX.Element>(contentText);
+const genToast = (content: string | JSX.Element, opts: ToastOptions): Toast => {
+  const contentRef = ref<string | JSX.Element>(content);
   const type = opts.type || "info"
   const bgColor = ref(colorClassMap[type].bg);
   const borderColor = ref(colorClassMap[type].border);
@@ -87,7 +87,7 @@ const genToast = (contentText: string | JSX.Element, opts: ToastOptions): Toast 
           transform: translate(-50%, -50%);
           z-index: 99999;
         `}>
-          <div class=" text-sm text-opacity-70 text-gray-700" > {content.value} </div>
+          <div class=" text-sm text-opacity-70 text-gray-700" > {contentRef.value} </div>
         </div>
       </>
     }
