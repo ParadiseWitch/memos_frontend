@@ -2,20 +2,20 @@ import { MaybeComputedRef, useFetch, UseFetchOptions } from '@vueuse/core'
 import { Ref } from 'vue'
 import { useToast } from '/@/components/toast/'
 import { useGlobalState } from '../stage'
-type ReturnType = SuccReturnType | FailReturnType
+type ReturnType<D extends any> = SuccReturnType<D> | FailReturnType
 
-type SuccReturnType = {
+type SuccReturnType<D extends any> = {
   status: 'success'
-  data: any
+  data: D
 }
 
 type FailReturnType = {
   status: 'fail'
-  msg: ''
+  msg: string
 }
 
-const useRequest = <T extends ReturnType>() => {
-  let res: Ref<T | null>
+const useRequest = <D extends any>() => {
+  let res: Ref<ReturnType<D> | null>
   let error: Ref<any>
   return {
     request (
@@ -23,7 +23,7 @@ const useRequest = <T extends ReturnType>() => {
       useFetchOptions: UseFetchOptions = {}
     ) {
       const baseURI = '/api/v1'
-      const rset = useFetch<T>(baseURI + url, {
+      const rset = useFetch<ReturnType<D>>(baseURI + url, {
         ...useFetchOptions,
         beforeFetch ({ url, options, cancel }) {
           const { token } = useGlobalState()
@@ -44,15 +44,26 @@ const useRequest = <T extends ReturnType>() => {
       return rset
     },
     handleReqResult (
-      succ: (params: { res: Ref<T>; error: Ref<any> }) => void,
-      fail?: (param: { res: Ref<T | null>; error: Ref<any> }) => void
+      succ: (params: {
+        res: Ref<SuccReturnType<D>>
+        error: Ref<any>
+      }) => void,
+      fail?: <T extends ReturnType<D> | null>(param: {
+        res: Ref<T>
+        error: Ref<any>
+      }) => void
     ) {
-      if (error.value || !res.value) {
-        useToast('请求失败', { type: 'warn' }).show()
+      if (res.value == null) {
+        useToast('请求后台失败，无返回数据', { type: 'warn' }).show()
         fail && fail({ res, error })
         return
       }
-      res.value = res.value as T
+
+      if (error.value) {
+        useToast('前台请求失败', { type: 'warn' }).show()
+        fail && fail({ res, error })
+        return
+      }
       if (!['fail', 'success'].includes(res.value.status)) {
         useToast('请求异常', { type: 'warn' }).show()
         fail && fail({ res, error })
@@ -60,10 +71,10 @@ const useRequest = <T extends ReturnType>() => {
       }
       if ('fail' === res.value.status) {
         useToast(res.value.msg, { type: 'warn' }).show()
-        fail && fail({ res, error })
+        fail && fail<FailReturnType>({ res: res as Ref<FailReturnType>, error })
         return
       }
-      succ({ res: res as Ref<T>, error })
+      succ({ res: res as Ref<SuccReturnType<D>>, error })
     }
   }
 }
