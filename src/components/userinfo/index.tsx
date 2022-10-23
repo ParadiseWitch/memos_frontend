@@ -1,11 +1,11 @@
-import { defineComponent } from "vue";
-import Avatar from "/@/components/avatar";
-import "./index.css"
-import DropDown from "../drop-down";
+import { defineComponent } from 'vue'
+import Avatar from '/@/components/avatar'
+import './index.css'
+import DropDown from '../drop-down'
 
 export default defineComponent({
-  name: "UserInfo",
-  setup(props) {
+  name: 'UserInfo',
+  setup() {
     const getbuttonSolt = () =>
       <div class="text-2xl text-gray-600 flex">
         <span class="truncate w-40 inline-block break-all">Maiiiiiidssssssssssssssssssssssssssss</span>
@@ -22,10 +22,10 @@ export default defineComponent({
               <DropDown
                 buttonSlot={getbuttonSolt()}
                 data={[
-                  { label: "账号详情", value: "" },
-                  { label: "消息通知", value: "" },
-                  { label: "API & 插件", value: "" },
-                  { label: "帮助教程", value: "" },]}
+                  { label: '账号详情', value: '' },
+                  { label: '消息通知', value: '' },
+                  { label: 'API & 插件', value: '' },
+                  { label: '帮助教程', value: '' }]}
                 onSelect={(e) => { console.log(e) }} />
               <i></i>
             </div>
@@ -47,5 +47,5 @@ export default defineComponent({
         </div>
       </>
     )
-  }
+  },
 })

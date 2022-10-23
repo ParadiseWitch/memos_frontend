@@ -1,12 +1,13 @@
-import { defineComponent, PropType } from "vue";
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Button",
+  name: 'Btn',
   props: {
     onClick: {
       type: Function as PropType<() => void>,
       required: true,
-    }
+    },
   },
   setup(props, { slots }) {
     return () => (
@@ -20,5 +21,5 @@ export default defineComponent({
         </div>
       </>
     )
-  }
+  },
 })

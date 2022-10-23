@@ -1,12 +1,12 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Avatar",
+  name: 'Avatar',
   props: {
     url: {
       type: String,
-      default: "/public/assets/avatar.jpeg"
-    }
+      default: '/public/assets/avatar.jpeg',
+    },
   },
   setup(props) {
     return () => (
@@ -16,5 +16,5 @@ export default defineComponent({
         </div>
       </>
     )
-  }
+  },
 })

@@ -1,14 +1,14 @@
-import { useVModel } from "@vueuse/core";
-import { defineComponent, ref } from "vue";
-import { definePropType } from "/@/utils/types";
-import "./index.css"
+import { useVModel } from '@vueuse/core'
+import { defineComponent, ref } from 'vue'
+import { definePropType } from '/@/utils/types'
+import './index.css'
 
 export default defineComponent({
-  name: "Input",
+  name: 'Ipt',
   props: {
     type: {
       type: String,
-      default: "text",
+      default: 'text',
     },
     disabled: {
       type: Boolean,
@@ -20,38 +20,38 @@ export default defineComponent({
         Number,
         Object,
       ]),
-      default: "",
+      default: '',
     },
     name: {
       type: String,
-      default: "",
+      default: '',
     },
     placeholder: {
       type: String,
-      default: ""
+      default: '',
     },
   },
   setup(props, { emit }) {
-    const modelValue = useVModel(props, "modelValue", emit)
+    const modelValue = useVModel(props, 'modelValue', emit)
     const showPassword = ref(true)
-    const eyeClolor = ref("#dcdfe6")
+    const eyeClolor = ref('#dcdfe6')
 
     return () => (
       <>
-        {props.type !== "hidden" &&
-          <div class="w-full memos-input rounded-md overflow-hidden px-2 relative">
+        {props.type !== 'hidden'
+          && <div class="w-full memos-input rounded-md overflow-hidden px-2 relative">
             <input
-              class={`w-full p-2 ${props.type == "password" && 'pr-5'}`}
+              class={`w-full p-2 ${props.type === 'password' && 'pr-5'}`}
               placeholder={props.placeholder}
               type={
-                props.type == "password" && showPassword.value
-                  ? "password"
-                  : "text"}
+                props.type === 'password' && showPassword.value
+                  ? 'password'
+                  : 'text'}
               name={props.name}
               disabled={props.disabled}
               v-model={modelValue.value}>
             </input>
-            {props.type == "password" && <svg
+            {props.type === 'password' && <svg
               onClick={() => { showPassword.value = !showPassword.value }}
               class="icon inline-block absolute top-3 right-2"
               style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
@@ -71,5 +71,5 @@ export default defineComponent({
           </div >}
       </>
     )
-  }
+  },
 })

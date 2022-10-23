@@ -1,14 +1,13 @@
-import { defineComponent, onMounted, ref } from "vue";
-import Button from "../button";
-import Input from "../input";
-import { useToast } from '/@/components/toast/'
-import { useRouter } from "vue-router";
-import useRequest from "../../request";
-import { useGlobalState } from "/@/stage";
-
+import { defineComponent, onMounted, ref } from 'vue'
+import Button from '../button'
+import Input from '../input'
+import useToast from '/@/components/toast/'
+import { useRouter } from 'vue-router'
+import useRequest from '../../request'
+import { useGlobalState } from '/@/stage'
 
 export default defineComponent({
-  name: "LoginOrRegist",
+  name: 'LoginOrRegist',
   props: {
     isLogin: {
       type: Boolean,
@@ -17,13 +16,12 @@ export default defineComponent({
   },
 
   setup(props) {
-
-    const username = ref("")
-    const password = ref("")
-    const repeatPsd = ref("")
+    const username = ref('')
+    const password = ref('')
+    const repeatPsd = ref('')
     const isLoginCur = ref(props.isLogin)
-    let loading = ref(false)
-    const router = useRouter();
+    const loading = ref(false)
+    const router = useRouter()
 
     onMounted(() => {
       isLoginCur.value = props.isLogin
@@ -31,33 +29,34 @@ export default defineComponent({
 
     const handleCheck = async () => {
       if (!username.value || !password.value) {
-        useToast("账号或密码不能为空", { type: "warn" }).show();
-        return;
+        useToast('账号或密码不能为空', { type: 'warn' }).show()
+        return
       }
 
-      if (!isLoginCur.value && password.value != repeatPsd.value) {
-        useToast("两次输入密码不一致！", { type: "warn" }).show();
-        return;
+      if (!isLoginCur.value && password.value !== repeatPsd.value) {
+        useToast('两次输入密码不一致！', { type: 'warn' }).show()
+        return
       }
 
-      loading.value = true;
+      loading.value = true
       const { request, handleReqResult } = useRequest<any>()
       await request(`/user/${isLoginCur.value ? 'login' : 'register'}`).post({
         name: username.value,
         password: password.value,
-      }).json();
-      loading.value = false;
+      }).json()
+      loading.value = false
       handleReqResult(({ res }) => {
         if (isLoginCur.value) {
-          useToast(`登陆成功, ${res.value.data.name}`).show();
-          const { userName, userRole, token } = useGlobalState();
-          token.value = res.value.data.token;
-          userName.value = res.value.data.name;
-          userRole.value = res.value.data.role;
+          useToast(`登陆成功, ${res.value.data.name}`).show()
+          const { userName, userRole, token } = useGlobalState()
+          token.value = res.value.data.token
+          userName.value = res.value.data.name
+          userRole.value = res.value.data.role
           router.push('/home')
-        } else {
-          useToast("注册成功！");
-          isLoginCur.value = true;
+        }
+        else {
+          useToast('注册成功！')
+          isLoginCur.value = true
         }
       })
     }
@@ -65,7 +64,7 @@ export default defineComponent({
     return () => (
       <>
         <div>
-          <div class="text-center font-bold text-2xl">{isLoginCur.value ? "登录" : "注册"}</div>
+          <div class="text-center font-bold text-2xl">{isLoginCur.value ? '登录' : '注册'}</div>
           <div class="p-2">
             <Input v-model={username.value} placeholder="请输入用户名" type="text"></Input>
           </div>
@@ -83,11 +82,11 @@ export default defineComponent({
           <div class="p-2 pt-0">
             <div class="text-sm text-right text-green-600 underline"
               onClick={() => { isLoginCur.value = !isLoginCur.value }}>
-              {isLoginCur.value ? "立即注册" : "立即登录"}
+              {isLoginCur.value ? '立即注册' : '立即登录'}
             </div>
           </div>
         </div>
       </>
     )
-  }
+  },
 })

@@ -1,23 +1,24 @@
-import { defineComponent, reactive, Ref, ref } from "vue";
-import MDEditor, { EditorModeType } from '/@/components/md-editor';
-import "./index.css";
+import type { Ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
+import type { EditorModeType } from '/@/components/md-editor'
+import MDEditor from '/@/components/md-editor'
+import './index.css'
 
 export default defineComponent({
-  name: "MemosView",
+  name: 'MemosView',
   setup() {
-    const text = ref('');
-    let mode: Ref<EditorModeType> = ref("edit");
-    let modes: EditorModeType[] = reactive(new Array(3).fill("preview"))
-    let editorIndex = -1;
+    const text = ref('')
+    const mode: Ref<EditorModeType> = ref('edit')
+    const modes: EditorModeType[] = reactive(new Array(3).fill('preview'))
+    let editorIndex = -1
     const handleDblClick = (index: number) => {
-      console.log('handleDblClick: ' + index);
-      if (editorIndex != -1) {
-        modes[editorIndex] = "preview";
-      }
-      modes[index] = "edit";
-      editorIndex = index;
-    }
+      console.log(`handleDblClick: ${index}`)
+      if (editorIndex !== -1)
+        modes[editorIndex] = 'preview'
 
+      modes[index] = 'edit'
+      editorIndex = index
+    }
 
     return () => (
       <>
@@ -36,10 +37,10 @@ export default defineComponent({
                   mode={modes[i]}
                 ></MDEditor>
               </div>
-            </>
+            </>,
           )}
         </main>
       </>
-    );
-  }
+    )
+  },
 })

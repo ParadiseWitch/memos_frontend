@@ -1,49 +1,50 @@
-import { MaybeComputedRef, useFetch, UseFetchOptions } from '@vueuse/core'
-import { Ref } from 'vue'
-import { useToast } from '/@/components/toast/'
+import type { MaybeComputedRef, UseFetchOptions } from '@vueuse/core'
+import { useFetch } from '@vueuse/core'
+import type { Ref } from 'vue'
+import useToast from '/@/components/toast/'
 import { useGlobalState } from '../stage'
-type ReturnType<D extends any> = SuccReturnType<D> | FailReturnType
+type ReturnType<D> = SuccReturnType<D> | FailReturnType
 
-type SuccReturnType<D extends any> = {
+interface SuccReturnType<D> {
   status: 'success'
   data: D
 }
 
-type FailReturnType = {
+interface FailReturnType {
   status: 'fail'
   msg: string
 }
 
-const useRequest = <D extends any>() => {
+const useRequest = <D>() => {
   let res: Ref<ReturnType<D> | null>
   let error: Ref<any>
   return {
-    request (
+    request(
       url: MaybeComputedRef<string>,
-      useFetchOptions: UseFetchOptions = {}
+      useFetchOptions: UseFetchOptions = {},
     ) {
       const baseURI = '/api/v1'
       const rset = useFetch<ReturnType<D>>(baseURI + url, {
         ...useFetchOptions,
-        beforeFetch ({ url, options, cancel }) {
+        beforeFetch({ url, options, cancel }) {
           const { token } = useGlobalState()
           if (
-            !token &&
-            !['/api/v1/user/login', '/api/v1/user/regist'].includes(url)
-          ) {
+            !token
+            && !['/api/v1/user/login', '/api/v1/user/regist'].includes(url)
+          )
             cancel()
-          }
+
           options.headers = {
             ...options.headers,
-            Authorization: `Bearer ${token.value}`
+            Authorization: `Bearer ${token.value}`,
           }
-        }
+        },
       })
       res = rset.data
       error = rset.error
       return rset
     },
-    handleReqResult (
+    handleReqResult(
       succ: (params: {
         res: Ref<SuccReturnType<D>>
         error: Ref<any>
@@ -51,7 +52,7 @@ const useRequest = <D extends any>() => {
       fail?: <T extends ReturnType<D> | null>(param: {
         res: Ref<T>
         error: Ref<any>
-      }) => void
+      }) => void,
     ) {
       if (res.value == null) {
         useToast('请求后台失败，无返回数据', { type: 'warn' }).show()
@@ -69,13 +70,13 @@ const useRequest = <D extends any>() => {
         fail && fail({ res, error })
         return
       }
-      if ('fail' === res.value.status) {
+      if (res.value.status === 'fail') {
         useToast(res.value.msg, { type: 'warn' }).show()
         fail && fail<FailReturnType>({ res: res as Ref<FailReturnType>, error })
         return
       }
       succ({ res: res as Ref<SuccReturnType<D>>, error })
-    }
+    },
   }
 }
 

@@ -5,10 +5,13 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.15",
+    "@types/eslint": "^8.4.7",
     "@vueuse/core": "^9.2.0",
     "highlight.js": "^11.6.0",
     "tippy.js": "^6.3.7",
@@ -16,6 +19,7 @@
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.27.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@types/node": "^16.7.5",
@@ -23,6 +27,7 @@
     "@vitejs/plugin-vue-jsx": "^1.1.7",
     "@vue/compiler-sfc": "^3.0.5",
     "autoprefixer": "^10.4.7",
+    "eslint": "^8.26.0",
     "husky": "^7.0.1",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.4",

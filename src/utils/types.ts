@@ -3,10 +3,11 @@
  * MIT License
  */
 
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 
 export const isElement = (e: unknown): e is Element => {
-  if (typeof Element === 'undefined') return false
+  if (typeof Element === 'undefined')
+    return false
   return e instanceof Element
 }
 

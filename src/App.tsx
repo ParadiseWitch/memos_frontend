@@ -1,11 +1,10 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import './App.css'
 
 export default defineComponent({
   props: {
   },
-  setup(props) {
-
+  setup() {
     return () => <router-view />
-  }
+  },
 })

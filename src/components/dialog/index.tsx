@@ -1,28 +1,26 @@
-import { TransitionPresets, useTransition } from "@vueuse/core"
-import { ref } from "vue"
-import useOutsideContainer from "../outside-container"
-
+import { TransitionPresets, useTransition } from '@vueuse/core'
+import { ref } from 'vue'
+import useOutsideContainer from '../outside-container'
 
 /* Dialog“组件”部分 */
 
-type DialogOption = {
-  title?: string,
-  needConfirm?: boolean,
-  isModel?: boolean,
-  onConfirm?: () => void,
-  onClose?: () => void,
+interface DialogOption {
+  title?: string
+  needConfirm?: boolean
+  isModel?: boolean
+  onConfirm?: () => void
+  onClose?: () => void
 }
 
-type DialogProps = {
-  content: string | JSX.Element,
-  opts: DialogOption,
+interface DialogProps {
+  content: string | JSX.Element
+  opts: DialogOption
 }
 type DialogComp = (props: DialogProps) => DialogCompInstance
-type DialogCompInstance = {
-  show: () => void,
+interface DialogCompInstance {
+  show: () => void
   jsx: () => JSX.Element
 }
-
 
 const dialogComp: DialogComp = (props: DialogProps): DialogCompInstance => {
   const topSource = ref(40)
@@ -37,7 +35,7 @@ const dialogComp: DialogComp = (props: DialogProps): DialogCompInstance => {
     },
     jsx: () => <>
       <div
-        class={`border bg-white w-96 fixed left-1/2 rounded-lg shadow-sm`}
+        class={'border bg-white w-96 fixed left-1/2 rounded-lg shadow-sm'}
         style={`
           top: ${top.value}%;
           transform: translate(-50%, -50%);
@@ -50,7 +48,7 @@ const dialogComp: DialogComp = (props: DialogProps): DialogCompInstance => {
         <div
           class="p-3 dialog-title py-2 font-bold text-lg"
           style="border-bottom: 1px #eee solid">
-          {props.opts?.title || "提示"}
+          {props.opts?.title || '提示'}
         </div>
         <div class="p-3 mt-4 text-sm text-opacity-70 text-gray-700">
           {props.content}
@@ -65,17 +63,17 @@ const dialogComp: DialogComp = (props: DialogProps): DialogCompInstance => {
           <div
             class="w-full p-2 px-10 text-center"
             onClick={props.opts?.onClose}>
-            {props.opts.needConfirm ? "取消" : "确认"}
+            {props.opts.needConfirm ? '取消' : '确认'}
           </div>
         </div>
       </div>
-    </>
+    </>,
   }
 }
 
 /* dialog管理部分 */
 
-const DialogContainerName = "dialog"
+const DialogContainerName = 'dialog'
 
 const dialogList = ref<DialogCompInstance[]>([])
 const toastContainer = () => (
@@ -85,33 +83,31 @@ const toastContainer = () => (
 )
 
 const removeDialog = (instance: DialogCompInstance) => {
-  const idx = dialogList.value.indexOf(instance);
-  if (idx != -1) {
+  const idx = dialogList.value.indexOf(instance)
+  if (idx !== -1)
     dialogList.value.splice(idx, 1)
-  }
 }
 const useDialog = (content: string | JSX.Element, opts: DialogOption = {}) => {
   const { registContainer, removeContainer, hasContainer, showMask } = useOutsideContainer()
-  if (!hasContainer(DialogContainerName)) {
+  if (!hasContainer(DialogContainerName))
     registContainer({ name: DialogContainerName, jsx: toastContainer })
-  }
 
-  let hideMask = opts.isModel && showMask()
+  const hideMask = opts.isModel && showMask()
 
+  const instance = dialogComp({ content, opts })
   const close = () => {
     removeDialog(instance)
-    if (dialogList.value.length == 0) {
+    if (dialogList.value.length === 0)
       removeContainer(DialogContainerName)
-    }
+
     hideMask && hideMask()
   }
 
-  const onCloseProp = opts?.onClose;
+  const onCloseProp = opts?.onClose
   opts.onClose = () => {
-    onCloseProp && onCloseProp();
+    onCloseProp && onCloseProp()
     close()
   }
-  const instance = dialogComp({ content, opts });
 
   return {
     show() {

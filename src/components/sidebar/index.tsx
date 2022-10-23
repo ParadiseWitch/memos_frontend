@@ -1,32 +1,31 @@
-import { defineComponent, reactive, ref } from "vue";
-import { CalendarHeatmap } from "/@/components/vue3-calendar-heatmap";
-import UserInfo from '/@/components/userinfo';
-import "./index.css"
+import { defineComponent, reactive, ref } from 'vue'
+import { CalendarHeatmap } from '/@/components/vue3-calendar-heatmap'
+import UserInfo from '/@/components/userinfo'
+import './index.css'
 
 export default defineComponent({
-  name: "sidebar",
+  name: 'Sidebar',
   setup() {
     const values = reactive([
       {
-        'date': '2022-08-13T00:00:00Z',
-        'count': 635000
+        date: '2022-08-13T00:00:00Z',
+        count: 635000,
       },
       {
-        'date': '2022-09-10T00:00:00Z',
-        'count': 2442000
+        date: '2022-09-10T00:00:00Z',
+        count: 2442000,
       },
-    ]);
-    const orientation = ref("horizontal");
-    const toggleSiderbar = () => {
-      console.log('toggleSiderbar')
-      const sidebarEl = document.body.querySelector(".sidebar-wrapper") as HTMLDivElement;
-      const display = window.getComputedStyle(sidebarEl).display;
-      if (display === "none") {
-        sidebarEl.style.display = "flex";
-      } else {
-        sidebarEl.style.display = "none";
-      }
-    }
+    ])
+    const orientation = ref('horizontal')
+    // const toggleSiderbar = () => {
+    //   console.log('toggleSiderbar')
+    //   const sidebarEl = document.body.querySelector('.sidebar-wrapper') as HTMLDivElement
+    //   const display = window.getComputedStyle(sidebarEl).display
+    //   if (display === 'none')
+    //     sidebarEl.style.display = 'flex'
+    //   else
+    //     sidebarEl.style.display = 'none'
+    // }
 
     return () => (
       <>
@@ -44,5 +43,5 @@ export default defineComponent({
         </aside>
       </>
     )
-  }
+  },
 })

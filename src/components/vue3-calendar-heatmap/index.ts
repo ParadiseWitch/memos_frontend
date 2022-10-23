@@ -1,7 +1,7 @@
-import CalendarHeatmap from "./CalendarHeatmap";
-import { Heatmap } from "./Heatmap";
+import CalendarHeatmap from './CalendarHeatmap'
+import { Heatmap } from './Heatmap'
 
 export {
   CalendarHeatmap,
-  Heatmap
+  Heatmap,
 }

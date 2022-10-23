@@ -1,12 +1,13 @@
-import { useVModel } from "@vueuse/core";
-import { defineComponent, nextTick, onMounted, PropType, ref } from "vue"
-import { useToast } from '/@/components/toast/'
-import "./index.css"
+import { useVModel } from '@vueuse/core'
+import type { PropType } from 'vue'
+import { defineComponent, ref } from 'vue'
+import useToast from '/@/components/toast/'
+import './index.css'
 
-export type EditorModeType = "edit" | "editable" | "preview";
+export type EditorModeType = 'edit' | 'editable' | 'preview'
 
 export default defineComponent({
-  name: "MDEditor",
+  name: 'MDEditor',
   props: {
     modelValue: {
       type: String,
@@ -14,26 +15,26 @@ export default defineComponent({
     },
     leftToolbar: {
       type: String,
-      default: "table | save"
+      default: 'table | save',
     },
     rightToolbar: {
       type: String,
-      default: "preview toc sync-scroll fullscreen"
+      default: 'preview toc sync-scroll fullscreen',
     },
     mode: {
       type: String as PropType<EditorModeType>,
-      default: "edit",
-    }
+      default: 'edit',
+    },
   },
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
-    const mdeditor = ref();
+    const mdeditor = ref()
 
-    const onSave = (text: any, html: any) => {
-      console.log(text, html);
+    const onSave = (text: any) => {
+      console.log(text)
     }
     const onFullScreen = (isFullscreen: boolean) => {
-      isFullscreen && useToast("按esc退出全屏", { type: "info" }).show();
+      isFullscreen && useToast('按esc退出全屏', { type: 'info' }).show()
     }
 
     return () => (
@@ -53,5 +54,5 @@ export default defineComponent({
         ></v-md-editor>
       </>
     )
-  }
+  },
 })

@@ -1,7 +1,7 @@
-export const delay = (delayTimes: number = 1000) => {
-  return new Promise((res, rej) => {
+export const delay = (delayTimes = 1000) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      res(null)
+      resolve(null)
     }, delayTimes)
   })
 }

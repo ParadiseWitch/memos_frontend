@@ -1,10 +1,10 @@
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Logo",
+  name: 'Logo',
   setup() {
     return () => (<>
       This is the Logo comp.
     </>)
-  }
+  },
 })

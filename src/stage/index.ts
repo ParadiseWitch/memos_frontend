@@ -1,6 +1,5 @@
-import { createGlobalState, useStorage } from "@vueuse/core";
-import { ref } from "vue";
-
+import { createGlobalState, useStorage } from '@vueuse/core'
+import { ref } from 'vue'
 
 export const useGlobalState = createGlobalState(() => {
   const userName = ref('')
