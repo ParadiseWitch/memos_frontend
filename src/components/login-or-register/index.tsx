@@ -41,19 +41,19 @@ export default defineComponent({
       }
 
       loading.value = true;
-      const { request, handleReqResult } = useRequest()
+      const { request, handleReqResult } = useRequest<any>()
       await request(`/user/${isLoginCur.value ? 'login' : 'register'}`).post({
         name: username.value,
         password: password.value,
       }).json();
       loading.value = false;
-      handleReqResult(({ data }) => {
+      handleReqResult(({ res }) => {
         if (isLoginCur.value) {
-          useToast(`登陆成功, ${data.value.data.name}`).show();
+          useToast(`登陆成功, ${res.value.data.name}`).show();
           const { userName, userRole, token } = useGlobalState();
-          token.value = data.value.data.token;
-          userName.value = data.value.data.name;
-          userRole.value = data.value.data.role;
+          token.value = res.value.data.token;
+          userName.value = res.value.data.name;
+          userRole.value = res.value.data.role;
           router.push('/home')
         } else {
           useToast("注册成功！");

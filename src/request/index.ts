@@ -2,13 +2,20 @@ import { MaybeComputedRef, useFetch, UseFetchOptions } from '@vueuse/core'
 import { Ref } from 'vue'
 import { useToast } from '/@/components/toast/'
 import { useGlobalState } from '../stage'
-interface ReturnType {
-  status: 'fail' | 'success'
-  data?: any
-  msg?: ''
+type ReturnType = SuccReturnType | FailReturnType
+
+type SuccReturnType = {
+  status: 'success'
+  data: any
 }
+
+type FailReturnType = {
+  status: 'fail'
+  msg: ''
+}
+
 const useRequest = <T extends ReturnType>() => {
-  let data: Ref<T | null>
+  let res: Ref<T | null>
   let error: Ref<any>
   return {
     request (
@@ -32,31 +39,31 @@ const useRequest = <T extends ReturnType>() => {
           }
         }
       })
-      data = rset.data
+      res = rset.data
       error = rset.error
       return rset
     },
     handleReqResult (
-      succ: (params: { data: Ref<T>; error: Ref<any> }) => void,
-      fail?: (param: { data: Ref<T | null>; error: Ref<any> }) => void
+      succ: (params: { res: Ref<T>; error: Ref<any> }) => void,
+      fail?: (param: { res: Ref<T | null>; error: Ref<any> }) => void
     ) {
-      if (error.value || !data.value) {
+      if (error.value || !res.value) {
         useToast('请求失败', { type: 'warn' }).show()
-        fail && fail({ data, error })
+        fail && fail({ res, error })
         return
       }
-      data.value = data.value as T
-      if (!['fail', 'success'].includes(data.value.status)) {
+      res.value = res.value as T
+      if (!['fail', 'success'].includes(res.value.status)) {
         useToast('请求异常', { type: 'warn' }).show()
-        fail && fail({ data, error })
+        fail && fail({ res, error })
         return
       }
-      if ('fail' === data.value.status) {
-        useToast(data.value.msg, { type: 'warn' }).show()
-        fail && fail({ data, error })
+      if ('fail' === res.value.status) {
+        useToast(res.value.msg, { type: 'warn' }).show()
+        fail && fail({ res, error })
         return
       }
-      succ({ data: data as Ref<T>, error })
+      succ({ res: res as Ref<T>, error })
     }
   }
 }
